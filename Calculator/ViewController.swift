@@ -40,6 +40,19 @@ class ViewController: UIViewController {
             isFinishedNumberInput = false
             }else{
                 // eliminating more than one decimal input
+                if numValue == "." {
+                    guard let currentDisplayValue = Double(displayLabel.text!)else{
+                        fatalError("cannot be converted to double")
+                    }
+                let isInt = floor(currentDisplayValue) == currentDisplayValue
+                    // returns the function so that . is not added again
+                    if !isInt{
+                        return
+                        
+                    }
+                    
+                }
+                
                 displayLabel.text = displayLabel.text! + numValue
             }
         }
