@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         guard let number = Double(displayLabel.text!)else{
             fatalError("This number cannot be displayed as cannot be converted to Double")
         }
-        // implementing +/-
+        // implementing +/-, AC and % 
         if let calcMethod = sender.currentTitle{
             if calcMethod == "+/-"{
                 displayLabel.text = String(number * -1)
