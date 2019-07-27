@@ -4,7 +4,17 @@ import UIKit
 
 class ViewController: UIViewController {
     private var isFinishedNumberInput : Bool = true
-    
+    private var displayValue : Double {
+        get{
+            guard let number = Double(displayLabel.text!)else{
+                fatalError("This number cannot be displayed as cannot be converted to Double")
+            }
+            return number
+        }
+        set{
+            displayLabel.text = String(newValue)
+        }
+    }
     
     @IBOutlet weak var displayLabel: UILabel!
     
@@ -14,22 +24,19 @@ class ViewController: UIViewController {
         
         //What should happen when a non-number button is pressed
         isFinishedNumberInput = true
-        guard let number = Double(displayLabel.text!)else{
-            fatalError("This number cannot be displayed as cannot be converted to Double")
-        }
+
         // implementing +/-, AC and %
         if let calcMethod = sender.currentTitle{
             if calcMethod == "+/-"{
-                displayLabel.text = String(number * -1)
+                displayValue *= -1
             }else if calcMethod == "AC" {
-                displayLabel.text == "0"
+                displayValue = 0
             }else if calcMethod == "%" {
-                displayLabel.text = String(number * 0.01)
+                displayValue *= 0.01
             }
         }
     
     }
-
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
         
@@ -41,14 +48,10 @@ class ViewController: UIViewController {
             }else{
                 // eliminating more than one decimal input
                 if numValue == "." {
-                    guard let currentDisplayValue = Double(displayLabel.text!)else{
-                        fatalError("cannot be converted to double")
-                    }
-                let isInt = floor(currentDisplayValue) == currentDisplayValue
+                    let isInt = floor(displayValue) == displayValue
                     // returns the function so that . is not added again
                     if !isInt{
                         return
-                        
                     }
                     
                 }
