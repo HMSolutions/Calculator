@@ -27,13 +27,11 @@ class ViewController: UIViewController {
 
         // implementing +/-, AC and %
         if let calcMethod = sender.currentTitle{
-            if calcMethod == "+/-"{
-                displayValue *= -1
-            }else if calcMethod == "AC" {
-                displayValue = 0
-            }else if calcMethod == "%" {
-                displayValue *= 0.01
+            let calculator = CalculatorLogic(number : displayValue)
+            guard let result = calculator.calculate(symbol: calcMethod) else{
+                fatalError("cannot calculate the result from passed in symbol")
             }
+            displayValue = result
         }
     
     }
